@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.3.1",
-    "openai": "^3.3.0"
+    "openai": "^3.3.0",
+    "textract": "^2.5.0"
   }
 }
