@@ -1,4 +1,6 @@
-yaml_prompt_1 = `write a node js server code to handle the below api yaml and segregate the get request in a file called get_request.js and post request in post_request.js and give me only code.
+const ut_prompt = "Write a unit test code for the below node js code and give me only code\n"
+
+const yaml_prompt_1 = `write a node js server code to handle the below api yaml and write everything in a single file server.js and give me only code.
 openapi: 3.0.0
 info:
   title: Calculator API
@@ -59,4 +61,4 @@ paths:
                     description: Addition result`
 
 
-module.exports = yaml_prompt_1;
+module.exports = { yaml_prompt_1, ut_prompt };
