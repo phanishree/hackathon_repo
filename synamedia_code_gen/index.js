@@ -1,20 +1,23 @@
-const {Configuration, OpenAIApi} = require("openai");
-require("dotenv").config();
+const fs = require('fs');
+const path = require('path');
+const { yaml_prompt_1 } = require('./prompts');
+const testCodeGenerator = require('./testGenerator')
+const helper = require('./helper')
+const openai = require('./apiRouter')
+const folderPath = path.join('/Users/garumugam/Desktop', 'Syna_API');
 
-const configuration = new Configuration({
-    apiKey : process.env.api_key_for_hackathon,
-});
-
-const openai= new OpenAIApi(configuration);
-
-const prompt="Hey, how are you doing today?";
-
-async function runGpt (){
-    const generatedReply = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: prompt,
-    });
-    console.log(generatedReply.data.choices[0].text);    //To select one of multiple replies generated
+async function start() {
+  try {
+    const response = await openai.runGpt(yaml_prompt_1);
+    if (!fs.existsSync(folderPath)) {
+      fs.mkdirSync(folderPath);
+    }
+    const serverFilePath = path.join(folderPath, 'server.js');
+    await helper.parsingResponse(response, serverFilePath);
+    await testCodeGenerator.main(serverFilePath);
+  } catch (error) {
+    console.error("Error - Starting the process:", error.message);
+  }
 }
 
-runGpt();
+start();
