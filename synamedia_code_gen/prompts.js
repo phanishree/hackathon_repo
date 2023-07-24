@@ -2,6 +2,43 @@ const ut_prompt = "Write a unit test code for the below node js code and give me
 
 const doc_prompt = "Generate a proper yaml file for the below API documentation\n"
 
+const direct_promtpt = "Give me a nodejs code using express library for the following data. There are two APIs 1)The method is a GET method which takes a query param of user_id and username and consoles it and send the same result back as response. 2)The method is POST method which takes a json body.The json body include a)username b)age c)user_id which is a mandatory field.The POST API will print the JSON body provided and sends the result as response.Do not connect to any database."
+
+const final_prompt = `write a node js server code to handle the below api document and write everything in a single file //server.js give me only //code
+
+Introduction
+The User Management API provides two endpoints to manage user data. It is built using Node.js and the Express library. The API allows you to retrieve user information using a GET request and create a new user using a POST request.
+
+Endpoints
+1) Get User Information
+Retrieves user information based on the provided user_id and username.
+
+Endpoint: GET /user-info
+
+Query Parameters:
+
+user_id (string) - (Required) The unique identifier of the user.
+username (string) - (Required) The username of the user.
+Response:
+
+The API will respond with a JSON object containing the provided user_id and username.
+
+2) Create User
+Creates a new user by providing user data in JSON format.
+
+Endpoint: POST /create-user
+
+Request Body:
+
+The request body should be a JSON object containing the following properties:
+
+username (string) - (Required) The username of the new user.
+age (string) - The age of the new user.
+user_id (string) - (Required) The unique identifier of the new user.
+Response:
+
+The API will respond with a JSON object containing the provided user data.`
+
 const yaml_prompt_1 = `write a node js server code to handle the below api yaml and write everything in a single file server.js and give me only code.
 openapi: 3.0.0
 info:
@@ -63,4 +100,4 @@ paths:
                     description: Addition result`
 
 
-module.exports = { yaml_prompt_1, ut_prompt, doc_prompt };
+module.exports = { yaml_prompt_1, ut_prompt, doc_prompt, direct_promtpt, final_prompt };

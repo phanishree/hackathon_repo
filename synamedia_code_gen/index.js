@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { yaml_prompt_1, doc_prompt } = require('./prompts');
+const { yaml_prompt_1, doc_prompt, direct_promtpt, final_prompt } = require('./prompts');
 const testCodeGenerator = require('./testGenerator')
 const helper = require('./helper')
 const openai = require('./apiRouter')
@@ -12,13 +12,13 @@ async function start() {
     // TO-DO: Phani carry on :)
     // const prompt = documentExtractor() + doc_prompt
 
-    const response = await openai.runGpt(yaml_prompt_1);
+    const response = await openai.runGpt(final_prompt);
     if (!fs.existsSync(folderPath)) {
       fs.mkdirSync(folderPath);
     }
     const serverFilePath = path.join(folderPath, 'server.js');
     await helper.parsingResponse(response, serverFilePath);
-    await testCodeGenerator.main(serverFilePath);
+    // await testCodeGenerator.main(serverFilePath);
   } catch (error) {
     console.error("Error - Starting the process:", error.message);
   }
