@@ -1,11 +1,11 @@
 const fs = require('fs');
 const path = require('path');
-const { yaml_prompt_1, doc_prompt, direct_promtpt, final_prompt: common_prompt } = require('./prompts');
+const { yaml_prompt_1, doc_prompt, direct_promtpt, final_prompt: common_prompt, intermediate_logic_prompt } = require('./prompts');
 const testCodeGenerator = require('./testGenerator')
 const helper = require('./helper')
 const openai = require('./apiRouter')
 const { documentExtractor } = require('./parseFile')
-const folderPath = path.join('/Users/garumugam/Desktop', 'Syna_API');
+const folderPath = path.join('/Users/pksynamedia.com/Desktop', 'Syna_API');
 
 async function start() {
   try {
