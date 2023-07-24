@@ -1,11 +1,16 @@
 const textract = require('textract');
-const filePath= "./assets/docx/api-doc-1.docx";    
+const filePath= "./assets/docx/api_doc.docx";    
 
 async function documentExtractor() {
-    textract.fromFileWithPath(filePath, function( error, text ) {
-        // console.log("Error - Extracting string from doc", error.message);
-        return text
-    })
-}
+    return new Promise((resolve, reject) => {
+      textract.fromFileWithPath(filePath, function (error, text) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(text);
+        }
+      });
+    });
+  }
 
 module.exports = { documentExtractor }
