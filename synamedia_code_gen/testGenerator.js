@@ -3,7 +3,7 @@ const path = require('path');
 const helper = require('./helper')
 const openai = require('./apiRouter')
 const { ut_prompt } = require('./prompts');
-const folderPath = path.join('/Users/garumugam/Desktop/Syna_API');
+const folderPath = path.join('/Users/greeshmarr/Desktop/Syna_API');
 
 function readFileToString(filePath) {
   return new Promise((resolve, reject) => {
@@ -20,7 +20,8 @@ function readFileToString(filePath) {
 async function main(filePath) {
   try {
     const fileContent = await readFileToString(filePath);
-    testCodeGenerator(fileContent)
+    const unitTestParsingResponse = await testCodeGenerator(fileContent)
+    return unitTestParsingResponse
   } catch (error) {
     console.error("Error - Reading the file:", error.message);
   }
@@ -35,8 +36,8 @@ async function testCodeGenerator(serverCodeAsString) {
       }
     const serverFilePath = path.join(folderPath, 'unitTest.js');
     
-    await helper.parsingResponse(response, serverFilePath);
-
+    const test_response =  await helper.parsingResponse(response, serverFilePath);
+    return test_response;
 }
 
 module.exports.main = main;
