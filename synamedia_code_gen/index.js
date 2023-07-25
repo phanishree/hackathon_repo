@@ -42,7 +42,7 @@ async function start(prompt) {
     }
     // server.js
     const serverFilePath = path.join(folderPath, 'server.js');
-    const serverParsingResponse = await helper.parsingResponse(response, serverFilePath);
+    const serverParsingResponse = await helper.parsingResponse(response, serverFilePath, prompt);
 
     // unitTest.js
     const unitTestParsingResponse = await testCodeGenerator.main(serverParsingResponse);
@@ -52,7 +52,7 @@ async function start(prompt) {
     
     const package_json_response = await openai.runGpt(package_json_prompt1);
     const package_json_FilePath = path.join(folderPath, 'package.json');
-    await helper.parsingResponse(package_json_response, package_json_FilePath);
+    await helper.parsingResponse(package_json_response, package_json_FilePath, package_json_prompt1);
   } catch (error) {
     console.error("Error - Starting the process:", error.message);
   }

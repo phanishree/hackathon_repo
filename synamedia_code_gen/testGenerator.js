@@ -36,7 +36,7 @@ async function testCodeGenerator(serverCodeAsString) {
       }
     const serverFilePath = path.join(folderPath, 'unitTest.js');
     
-    const test_response =  await helper.parsingResponse(response, serverFilePath);
+    const test_response =  await helper.parsingResponse(response, serverFilePath, serverCodeAsString);
     return test_response;
 }
 
