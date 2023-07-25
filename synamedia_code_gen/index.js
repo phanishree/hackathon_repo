@@ -1,7 +1,7 @@
 require("dotenv").config();
 const fs = require('fs');
 const path = require('path');
-const { yaml_prompt_1, doc_prompt, direct_promtpt,  common_prompt, intermediate_logic_prompt, complex_logic_prompt_1, rach_prompt, package_json_prompt } = require('./prompts');
+const { yaml_prompt_1, doc_prompt, direct_promtpt,  common_prompt, intermediate_logic_prompt, complex_logic_prompt_1, rach_prompt, package_json_prompt, stage_test_prompt, ut_prompt } = require('./prompts');
 const testCodeGenerator = require('./testGenerator')
 const helper = require('./helper')
 const openai = require('./apiRouter')
@@ -44,15 +44,16 @@ async function start(prompt) {
     const serverFilePath = path.join(folderPath, 'server.js');
     const serverParsingResponse = await helper.parsingResponse(response, serverFilePath, prompt);
 
-    // unitTest.js
-    const unitTestParsingResponse = await testCodeGenerator.main(serverParsingResponse);
+  // //  unitTest.js
+  //   const unitTestParsingResponse = await testCodeGenerator.main(serverParsingResponse, 'unitTest.js', ut_prompt);
 
-    // package.json
-    const package_json_prompt1 =  package_json_prompt + "\nserver.js code" + serverParsingResponse + "\nunit tests code" + unitTestParsingResponse
-    
-    const package_json_response = await openai.runGpt(package_json_prompt1);
-    const package_json_FilePath = path.join(folderPath, 'package.json');
-    await helper.parsingResponse(package_json_response, package_json_FilePath, package_json_prompt1);
+    // stage2Test.js
+    const stageTestParsingResponse = await testCodeGenerator.main(serverParsingResponse, 'stage2Test.js', stage_test_prompt);
+
+    // package.json 
+    const package_json_prompt_1 =   "\nserver.js code" + serverParsingResponse + "\n server test code " + stageTestParsingResponse
+    const packageJsonResponce = await testCodeGenerator.main(package_json_prompt_1, 'package.json', package_json_prompt);
+
   } catch (error) {
     console.error("Error - Starting the process:", error.message);
   }

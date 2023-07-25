@@ -1,5 +1,5 @@
 const textract = require('textract');
-const filePath= "./assets/docx/travel_doc.docx";    
+const filePath= "./assets/docx/api_doc_2.docx";    
 
 async function documentExtractor() {
     return new Promise((resolve, reject) => {

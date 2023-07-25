@@ -1,11 +1,8 @@
 const fs = require("fs");
 
 function removeComments(jsonString) {
-  // Regular expression to match single and multi-line comments in JSON
-
   const commentRegex = /\/\/.*?\n|\/\*.*?\*\//g;
-
-  return jsonString.replace(commentRegex, "");
+   return jsonString.replace(commentRegex, "");
 }
 
 function parsingResponse(responseData, filePath, prompt) {
@@ -15,11 +12,7 @@ function parsingResponse(responseData, filePath, prompt) {
       total_tokens >= 16000
         ? responseData.data.choices[0].message.content
         : responseData.data.choices[0].text;
-    // const dataToWrite = responseData.data.choices[0].text;
-
-    // Extract and parse everything before the first '{' character
-
-    const firstCurlyBraceIndex = dataToWrite.indexOf("{");
+        const firstCurlyBraceIndex = dataToWrite.indexOf("{");
 
     const jsonDataWithoutPrecedingChars =
       dataToWrite.slice(firstCurlyBraceIndex);
@@ -33,14 +26,15 @@ function parsingResponse(responseData, filePath, prompt) {
         jsonDataWithoutPrecedingChars
       );
 
+      console.log(jsonDataWithoutComments)
       fs.writeFileSync(filePath, jsonDataWithoutComments);
 
       console.log(`Code written to ${filePath}`);
 
       return jsonDataWithoutComments;
     } else {
+      console.log(dataToWrite)
       fs.writeFileSync(filePath, dataToWrite);
-
       console.log(`Code written to ${filePath}`);
 
       return dataToWrite;

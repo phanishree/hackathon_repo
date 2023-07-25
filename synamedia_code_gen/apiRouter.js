@@ -38,7 +38,7 @@ async function runGpt(prompt) {
           model: "text-davinci-003", // Change model gpt-3.5-turbo-16k to use 16000 tokens
           prompt: prompt,
           temperature: 0,
-          max_tokens: 1000, 
+          max_tokens: 2000, 
         });
         return response;
       }

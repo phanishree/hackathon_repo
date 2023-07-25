@@ -18,23 +18,23 @@ function readFileToString(filePath) {
   });
 }
 
-async function main(serverCodeAsString) {
+async function main(serverCodeAsString, fileName, prompt) {
   try {
     // const fileContent = await readFileToString(filePath);
-    const unitTestParsingResponse = await testCodeGenerator(serverCodeAsString)
+    const unitTestParsingResponse = await testCodeGenerator(serverCodeAsString, fileName, prompt)
     return unitTestParsingResponse
   } catch (error) {
     console.error("Error - Reading the file:", error.message);
   }
 }
 
-async function testCodeGenerator(serverCodeAsString) {
-    const prompt_UT =  ut_prompt + serverCodeAsString;
+async function testCodeGenerator(serverCodeAsString, fileName, prompt) {
+  const prompt_UT =  prompt + serverCodeAsString;
     const response = await openai.runGpt(prompt_UT);
     if (!fs.existsSync(folderPath)) {
         fs.mkdirSync(folderPath);
       }
-    const serverFilePath = path.join(folderPath, 'unitTest.js');
+    const serverFilePath = path.join(folderPath, fileName);
     
     const test_response =  await helper.parsingResponse(response, serverFilePath, serverCodeAsString);
     return test_response;
