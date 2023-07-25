@@ -1,4 +1,5 @@
 const ut_prompt = "Write a unit test code for the below node js server.js. with mock request and run with mocha. in a proper runnable format. and give me only code\n"
+const package_json_prompt = "write package.json for both files combined and remove all strings, return only json"
 
 const doc_prompt = "Generate a proper yaml file for the below API documentation\n"
 
@@ -69,4 +70,4 @@ paths:
                     description: Addition result`
 
 
-module.exports = { yaml_prompt_1, ut_prompt, doc_prompt, direct_promtpt, final_prompt, intermediate_logic_prompt };
+module.exports = { yaml_prompt_1, ut_prompt, doc_prompt, direct_promtpt, final_prompt, intermediate_logic_prompt, package_json_prompt };
