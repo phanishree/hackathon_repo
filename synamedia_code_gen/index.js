@@ -13,9 +13,12 @@ const extractApiInfo = require("./parseDocsPage");
 
 function decide(){
   const args = process.argv[2];
-      if(args === 'doc'){
-        usingDoc()
-      }else{
+      if(args === 'doc2'){
+        usingDoc('api_doc_2.docx')
+      }else if(args === 'doc3'){
+        usingDoc('api_doc_3.docx')
+      }
+      else{
         usingCrawler()
       }
 }
@@ -29,8 +32,8 @@ async function usingCrawler(){
   await start(prompt);
 }
 
-async function usingDoc(){
-  const apiInfo = await documentExtractor();  //
+async function usingDoc(docName){
+  const apiInfo = await documentExtractor(docName);  //
   const prompt = common_prompt + apiInfo
   await start(prompt);
 }

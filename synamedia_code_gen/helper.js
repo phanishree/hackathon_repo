@@ -26,14 +26,12 @@ function parsingResponse(responseData, filePath, prompt) {
         jsonDataWithoutPrecedingChars
       );
 
-      console.log(jsonDataWithoutComments)
       fs.writeFileSync(filePath, jsonDataWithoutComments);
 
       console.log(`Code written to ${filePath}`);
 
       return jsonDataWithoutComments;
     } else {
-      console.log(dataToWrite)
       fs.writeFileSync(filePath, dataToWrite);
       console.log(`Code written to ${filePath}`);
 
