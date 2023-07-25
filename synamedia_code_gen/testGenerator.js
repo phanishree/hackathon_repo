@@ -2,8 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const helper = require('./helper')
 const openai = require('./apiRouter')
+require("dotenv").config();
 const { ut_prompt } = require('./prompts');
-const folderPath = path.join('/Users/pksynamedia.com/Desktop/Syna_API');
+const folderPath = path.join(`/Users/${process.env.dev_path}/Desktop/Syna_API`);
 
 function readFileToString(filePath) {
   return new Promise((resolve, reject) => {
