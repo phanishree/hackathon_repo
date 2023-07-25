@@ -1,19 +1,41 @@
 require("dotenv").config();
 const fs = require('fs');
 const path = require('path');
-const { yaml_prompt_1, doc_prompt, direct_promtpt, final_prompt: common_prompt, intermediate_logic_prompt, complex_logic_prompt_1, rach_prompt, package_json_prompt } = require('./prompts');
+const { yaml_prompt_1, doc_prompt, direct_promtpt,  common_prompt, intermediate_logic_prompt, complex_logic_prompt_1, rach_prompt, package_json_prompt } = require('./prompts');
 const testCodeGenerator = require('./testGenerator')
 const helper = require('./helper')
 const openai = require('./apiRouter')
 const { documentExtractor } = require('./parseFile')
 const folderPath = path.join(`/Users/${process.env.dev_path}/Desktop`, 'Syna_API');
 const runner = require('child_process');
+const Crawler = require('crawler');
+const extractApiInfo = require("./parseDocsPage");
 
-async function start() {
+function decide(){
+  const args = process.argv[2];
+      if(args === 'doc'){
+        usingDoc()
+      }else{
+        usingCrawler()
+      }
+}
+
+decide()
+
+
+async function usingCrawler(){
+  const apiInfo = await extractApiInfo();  //
+  const prompt = common_prompt + apiInfo
+  await start(prompt);
+}
+
+async function usingDoc(){
+  const apiInfo = await documentExtractor();  //
+  const prompt = common_prompt + apiInfo
+  await start(prompt);
+}
+async function start(prompt) {
   try {
-    const api_doc_text = await documentExtractor()
-    const prompt = common_prompt + api_doc_text
-
     const response = await openai.runGpt(prompt);
     if (!fs.existsSync(folderPath)) {
       fs.mkdirSync(folderPath);
@@ -35,5 +57,3 @@ async function start() {
     console.error("Error - Starting the process:", error.message);
   }
 }
-
-start();
