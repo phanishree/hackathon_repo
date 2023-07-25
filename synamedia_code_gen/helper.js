@@ -1,8 +1,9 @@
 const fs = require('fs');
 
-async function parsingResponse(responseData, filePath) {
+async function parsingResponse(responseData, filePath, prompt) {
     try {
-      const dataToWrite = responseData.data.choices[0].message.content;
+      const total_tokens = prompt.length / 4;
+      const dataToWrite = total_tokens >= 16000 ? responseData.data.choices[0].message.content : responseData.data.choices[0].text;
       fs.writeFileSync(filePath, dataToWrite);
       console.log(`Code written to ${filePath}`);
       return dataToWrite
