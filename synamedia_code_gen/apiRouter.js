@@ -11,11 +11,10 @@ const openai = new OpenAIApi(configuration);
 
 async function runGpt(prompt) {
     // try {
-    //   console.log("this is the prompt ", prompt)
     //     const response = await axios.post(
     //         "https://api.openai.com/v1/chat/completions",
     //       {
-    //         model: "",
+    //         model: "gpt-3.5-turbo-16k",
     //         temperature: 0,
     //         messages: [
     //             {

@@ -31,7 +31,6 @@ async function main(serverCodeAsString) {
 async function testCodeGenerator(serverCodeAsString) {
     const prompt_UT =  ut_prompt + serverCodeAsString;
     const response = await openai.runGpt(prompt_UT);
-    
     if (!fs.existsSync(folderPath)) {
         fs.mkdirSync(folderPath);
       }
