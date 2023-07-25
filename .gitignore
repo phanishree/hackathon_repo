@@ -1,1 +1,3 @@
 node_modules.DS_Store
+/synamedia_code_gen/node_modules
+/synamedia_code_gen/.env
