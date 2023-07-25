@@ -6,7 +6,9 @@ const testCodeGenerator = require('./testGenerator')
 const helper = require('./helper')
 const openai = require('./apiRouter')
 const { documentExtractor } = require('./parseFile')
-const folderPath = path.join('/Users/pksynamedia.com/Desktop', 'Syna_API');
+const folderPath = path.join(`/Users/${process.env.dev_path}/Desktop`, 'Syna_API');
+const runner = require('child_process');
+
 async function start() {
   try {
     const api_doc_text = await documentExtractor()
