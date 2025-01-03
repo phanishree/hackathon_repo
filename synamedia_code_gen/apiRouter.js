@@ -28,7 +28,7 @@ async function runGpt(prompt) {
          {
             headers: {
                 "Content-Type": "application/json",
-                Authorization: "Bearer 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",
+                Authorization: `Bearer ${process.env.api_key_for_hackathon}`,
             },
          }
          );
